@@ -5,10 +5,10 @@ const { Category, Product } = require('../../models');
 
 router.get('/', async (req, res) => {
   try {
-    const categories = await Category.findAll({
+    const categoryData = await Category.findAll({
       include: [{ model: Product }],
     });
-    res.status(200).json(categories);
+    res.status(200).json(categoryData);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -17,14 +17,14 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const category = await Category.findByPk(req.params.id, {
+    const categoryData = await Category.findByPk(req.params.id, {
       include: [{ model: Product }],
     });
-    if (!category) {
-      res.status(404).json({ message: 'No category found with this id' });
+    if (!categoryData) {
+      res.status(404).json({ message: 'No category found' });
       return;
     }
-    res.status(200).json(category);
+    res.status(200).json(categoryData);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -51,10 +51,10 @@ router.put('/:id', async (req, res) => {
       },
     });
     if (!categoryData[0]) {
-      res.status(404).json({ message: 'No category found with this id' });
+      res.status(404).json({ message: 'No category found' });
       return;
     }
-    res.status(200).json({ message: 'Category updated successfully' });
+    res.status(200).json({ message: 'Category updated' });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -69,10 +69,10 @@ router.delete('/:id', async (req, res) => {
       },
     });
     if (!categoryData) {
-      res.status(404).json({ message: 'No category found with this id' });
+      res.status(404).json({ message: 'No category found' });
       return;
     }
-    res.status(200).json({ message: 'Category deleted successfully' });
+    res.status(200).json({ message: 'Category deleted' });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
