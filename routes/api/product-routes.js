@@ -56,20 +56,20 @@ router.get('/:id', async (req, res) => {
 });
 
 // create new product
-router.post('/', async (req, res) => {
-  try {
-    const productData = await Product.create(req.body, {
-      include: [
-        { model: Category },
-        { model: Tag, through: ProductTag }
-      ]
-    });
-    res.status(200).json(productData);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
-  }
-});
+router.post('/',  (req, res) => {
+  // try {
+  //   const productData = await Product.create(req.body, {
+  //     include: [
+  //       { model: Category },
+  //       { model: Tag, through: ProductTag }
+  //     ]
+  //   });
+  //   res.status(200).json(productData);
+  // } catch (err) {
+  //   console.log(err);
+  //   res.status(500).json(err);
+  // }
+
 
   Product.create(req.body)
     .then((product) => {
@@ -91,7 +91,7 @@ router.post('/', async (req, res) => {
       console.log(err);
       res.status(400).json(err);
 });
-
+});
 
 // update product
 router.put('/:id', async (req, res) => {
